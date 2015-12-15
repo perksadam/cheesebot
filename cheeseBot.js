@@ -7,7 +7,14 @@
     var http = require('http');
     var R = require('Ramda');
 
-    var cheeseNames = ['cheese', 'gouda', 'blue', 'swiss', 'munster', 'queso', 'nacho', 'asiago', 'romano', 'cheddar', 'mozzarella', 'provolone', 'havarti', 'colby', 'brie', 'feta'];
+    var cheeseNames = [];
+
+    fs.createReadStream('Cheese.txt', { encoding: 'utf8'}).on('data', function(data){
+        cheeseNames = R.map(R.trim, data.split('\n'));
+    }).on('end', function(){
+        slack.login();
+    });
+	
   token = 'xxxxx';
 
     var giphyUrl =  "http://tv.giphy.com/v1/gifs/tv?api_key=CW27AW0nlp5u0&tag={tag}&internal=yes";
@@ -94,8 +101,6 @@
   slack.on('error', function(error) {
     return console.error("Error: " + error);
   });
-
-  slack.login();
 
     function getRegExp(cheese){
         return new RegExp(cheese, 'gi');
