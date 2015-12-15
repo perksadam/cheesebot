@@ -103,7 +103,7 @@
   });
 
     function getRegExp(cheese){
-        return new RegExp('\\W' + cheese + '\\W', 'gi');
+        return new RegExp('(^|\\W)' + cheese + '(?=\\W|$)', 'gi');
     }
 
     function messageContainsCheese(message){
