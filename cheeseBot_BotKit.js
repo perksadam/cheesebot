@@ -22,7 +22,7 @@
 
     //connect the bot to a stream of messages
     var bot = controller.spawn({
-        token: 'xoxb-23598485062-ZxYTzSuFPfLAunpySCRtHIfm',
+        token: 'xxxxx',
     }).startRTM();
 
     // give the bot something to listen for.
