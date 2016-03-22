@@ -1,8 +1,8 @@
 (function() {
-    var Slack, autoMark, autoReconnect, slack, token;
+    var slack;
+    var R = require('Ramda');
 
     var http = require('http');
-    var R = require('Ramda');
     var Botkit = require('botkit');
 
     var cheeseNames = [];
@@ -22,19 +22,25 @@
 
     //connect the bot to a stream of messages
     var bot = controller.spawn({
-        token: 'xxxxx',
+        token: 'xxxx',
     }).startRTM();
 
     // give the bot something to listen for.
     controller.hears(cheeseNames, ['message_received'], function (bot, message) {
 
-        bot.reply(message, 'Hello ');
-
+        bot.reply(message, getGif());
     });
 
 
+
+
+
+
+
+
+
     function getGif(callback){
-        http.get(requestUrl, function(response){
+        http.get(giphyUrl, function(response){
             response.setEncoding('utf8');
             var body = '';
             response.on('data', function(data){
@@ -44,8 +50,7 @@
                 var responseObject = JSON.parse(body);
                 if(responseObject.data.url){
                     console.log(responseObject.data.url);
-                    callback(responseObject.data.url);
-                    //channel.send(responseObject.data.url);
+                    channel.send(responseObject.data.url);
                 }
             });
         });
